@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/andre/Documents/Arduino/d'aia/RGB_Fade.ino",
-      "program": "c:/Users/andre/Documents/Arduino/d'aia/RGB_Fade.ino/build/Debug/outDebug",
+      "cwd": "c:/Users/andre/Documents/Arduino/d'aia/Arduino_projects",
+      "program": "c:/Users/andre/Documents/Arduino/d'aia/Arduino_projects/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
