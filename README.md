@@ -21,16 +21,6 @@ Each project lives in its own folder with:
 ✔️ Project description  
 ✔️ Parts list  
 
-Examples include (adjust based on your actual content):
-
-- **Blink (LED Basic)** – Blink built‑in LED
-- **Traffic Light System** – Simulate traffic lights with LEDs
-- **Ultrasonic Distance Sensor** – HC‑SR04 distance measurement
-- **Temperature & Humidity Monitor** – Using DHT11/DHT22
-- **Servo Motor Control** – Controlling servos with potentiometer
-- **LCD Display UI** – Output text to a 16×2 LCD
-
----
 
 ## 📋 Requirements
 
