@@ -1,99 +1,128 @@
 # Arduino 4-Button Password Lock System
 
-## Overview
+## Description
 
-This project is a simple password-based locking system built using Arduino.  
-It uses:
+This project is a simple password-based locking system using an Arduino Uno.  
+The user sets a 4-button password and must enter the correct sequence to unlock the device.  
+If the password is incorrect, access is denied.
 
-- 4 push buttons (password input)
-- 4 LEDs (input feedback)
-- 1 RGB LED (menu indicator)
-- 1 buzzer (audio feedback)
-
-The password length is fixed to **4 button presses**.
+The system includes visual feedback using LEDs and an RGB LED, plus audio feedback using a buzzer or piezo element.
 
 ---
 
-## Hardware Components
+## Components Needed
 
-- Arduino board (Uno/Nano/etc.)
-- 4x Push buttons
-- 4x LEDs
-- 1x RGB LED
-- 1x Buzzer
-- Resistors
-- Breadboard and jumper wires
+- 1 × Arduino Uno  
+- 4 × LEDs (input feedback)  
+- 4 × Push buttons  
+- 1 × RGB LED  
+- 1 × Buzzer or Piezo  
+- 7 × 220Ω resistors (4 for LEDs, 3 for RGB)  
+- Jumper wires and breadboard  
+
+---
+
+## Connections
+
+### LEDs (Input Feedback)
+
+| LED | Arduino Pin |
+|-----|------------|
+| LED 1 | A3 |
+| LED 2 | A2 |
+| LED 3 | A1 |
+| LED 4 | A0 |
+
+Each LED should have a 220Ω resistor connected to GND.
+
+---
+
+### Buttons
+
+| Button | Arduino Pin |
+|--------|------------|
+| Button 1 | 3 |
+| Button 2 | 4 |
+| Button 3 | 5 |
+| Button 4 | 6 |
+| Menu / Confirm Button | 7 |
+
+Each button connects between the pin and GND.  
+Pins are configured using `INPUT_PULLUP`.
+
+---
+
+### RGB LED
+
+| Color | Arduino Pin |
+|-------|------------|
+| Red   | 11 |
+| Green | 10 |
+| Blue  | 9  |
+
+Each color channel should have a resistor.
+
+---
+
+### Buzzer / Piezo
+
+| Component | Arduino Pin |
+|-----------|------------|
+| Buzzer    | 12 |
+
+Connected between the pin and GND.
 
 ---
 
 ## Menu System (RGB Colors)
 
-The RGB LED shows the current selected option:
+The RGB LED indicates the selected option:
 
-- 🔴 **Red** → Set new password  
-- 🟡 **Yellow** → Unlock device  
-- 🟢 **Green** → Lock device  
-- 🔵 **Blue** → Change password (requires current password)
+- 🔴 Red → Set password  
+- 🟡 Yellow → Unlock  
+- 🟢 Green → Lock  
+- 🔵 Blue → Change password  
 
-Press one of the 4 main buttons to select a menu option.  
-Press the **menu button** to execute it.
+Press one of the 4 main buttons to select an option.  
+Press the menu button to execute it.
 
 ---
 
 ## How It Works
 
-### Setting a Password
-1. Select **Red**.
-2. Press 4 buttons in your desired order.
-3. The password is saved.
-4. Device becomes locked.
-
-### Unlocking
-1. Select **Yellow**.
-2. Enter the 4-button password.
-3. If correct → device unlocks.
-4. If incorrect → error sound.
-
-### Locking
-1. Select **Green**.
-2. Device locks immediately.
-
-### Changing Password
-1. Select **Blue**.
-2. Enter the current password.
-3. If correct → enter a new 4-button password.
+1. The user selects an option using one of the four buttons.  
+2. The RGB LED changes color to indicate the selected mode.  
+3. When setting or checking a password, the user must press exactly 4 buttons in sequence.  
+4. If the password matches → success sound.  
+5. If incorrect → error sound.
 
 ---
 
-## Security Notes
+## Main Variables
 
-- Password is stored in RAM.
-- Password is lost if Arduino resets.
-- No brute-force protection (simple version).
-
----
-
-## Project Purpose
-
-This project demonstrates:
-
-- Digital input handling
-- Menu logic
-- State management
-- Password comparison logic
-- Basic embedded system design
+| Variable | Type | Purpose |
+|----------|------|----------|
+| ledPins[4] | int | Stores LED pins |
+| buttonPins[4] | int | Stores button pins |
+| password[4] | int | Stores the 4-step password |
+| currentOption | int | Stores selected menu option |
+| deviceLocked | bool | Tracks lock state |
 
 ---
 
-## Possible Improvements
+## Notes
 
-- Store password in EEPROM
-- Add LCD or OLED display
-- Add lockout after multiple failed attempts
-- Add different RGB colors for locked/unlocked state
+- Pins 0 and 1 should be avoided (Serial communication).  
+- Buttons use `INPUT_PULLUP`, meaning pressed = `LOW`.  
+- Password is stored in RAM and resets when Arduino resets.  
+- Password length is fixed to 4 inputs.
 
 ---
 
-## Author
+## System Logic
 
-Created as an educational embedded systems project using Arduino.
+1. Select an option.  
+2. Execute the selected action.  
+3. If required, enter a 4-button password.  
+4. System verifies the sequence.  
+5. Device state updates accordingly.
